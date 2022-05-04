@@ -10,8 +10,6 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(sol.maxOperations([3, 1, 3, 4, 3], 6), 1)
         sol = Solution()
         self.assertEqual(sol.maxOperations([3, 3, 3], 6), 1)
-        sol = Solution()
-        self.assertEqual(sol.maxOperations([2, 2, 2, 3, 1, 1, 4, 1], 4)
 
     def test_empty_array(self):
         sol = Solution()
