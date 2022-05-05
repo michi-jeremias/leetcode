@@ -1,7 +1,7 @@
 """
 https://leetcode.com/problems/house-robber/
 
-Problem 4 in
+Problem 5 in
 https://leetcode.com/study-plan/dynamic-programming/
 """
 
