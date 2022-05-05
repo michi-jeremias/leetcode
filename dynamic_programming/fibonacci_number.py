@@ -32,21 +32,12 @@ class Solution:
         self.hash[1] = 1
 
     def fib(self, n: int) -> int:
-        new_n = n
 
-        if n in self.hash:
-            return self.hash[n]
-
-        if (new_n - 1) not in self.hash:
-            new_n -= 1
-            self.fib(new_n)
-            self.hash[n] = self.hash[n - 1] + self.hash[n - 2]
-
-        else:
+        if n not in self.hash:
+            self.fib(n-1)
             self.hash[n] = self.hash[n - 1] + self.hash[n - 2]
 
         return self.hash[n]
-
 
 sol = Solution()
 sol.fib(50)
