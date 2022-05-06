@@ -11,25 +11,55 @@ from typing import List
 
 class Solution:
     def __init__(self) -> None:
-        self.maxpoints = defaultdict(int)
+        self.gains = defaultdict(int)
+        self.values = defaultdict(int)
 
     def deleteAndEarn(self, nums: List[int]) -> int:
-        num_nums = len(nums)
-        if num_nums == 0:
+
+        maxnum = max(nums)
+
+        for n in range(0, maxnum, 1):
+            self.gains[n] = nums.count(n) * n
+
+        def get_value(num):
+            for num in set(nums):
+                if num == 0:
+                    return 0
+                if num == 1:
+                    return self.points[1]
+
+                if num not in self.values.keys():
+                    self.get_value(num - 1)
+                    self.values[num] = max(
+                        self.gains[num] + self.gains[num - 2], self.gains[num - 1]
+                    )
+
+        return max(self.values.values())
+
+
+class Solution:
+    def __init__(self) -> None:
+        self.points = defaultdict(int)
+
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        maxnum = 0
+
+        for num in nums:
+            self.points[num] += num
+            maxnum = max(num, maxnum)
+
+        if num == 0:
             return 0
-        if num_nums == 1:
-            return nums[0]
+        if num == 1:
+            return self.points[1]
 
-        if num_nums == 2:
-            return max(self.gain.values())
+        if num not in self.points:
+            self.deleteAndEarn(num - 1)
+            self.points[num] = max(
+                self.points[num] + self.points[num - 2], self.points[num - 1]
+            )
 
-        for item in range(2, max(nums) + 1, 1):
-            if item in nums:
-                self.gain[item] = max(
-                    self.getgain(nums[item]) + self.gain[item - 2], self.gain[item - 1]
-                )
-
-        return max(self.maxpoints.values())
+        return max(self.points.values())
 
 
 sol = Solution()
