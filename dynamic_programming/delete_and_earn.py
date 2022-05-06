@@ -6,60 +6,40 @@ https://leetcode.com/study-plan/dynamic-programming/
 """
 
 from collections import defaultdict
+from email.policy import default
 from typing import List
 
 
 class Solution:
     def __init__(self) -> None:
-        self.gains = defaultdict(int)
-        self.values = defaultdict(int)
+        self.gain = defaultdict(int)
+        self.hash = defaultdict(int)
 
     def deleteAndEarn(self, nums: List[int]) -> int:
-
         maxnum = max(nums)
-
-        for n in range(0, maxnum, 1):
-            self.gains[n] = nums.count(n) * n
-
-        def get_value(num):
-            for num in set(nums):
-                if num == 0:
-                    return 0
-                if num == 1:
-                    return self.points[1]
-
-                if num not in self.values.keys():
-                    self.get_value(num - 1)
-                    self.values[num] = max(
-                        self.gains[num] + self.gains[num - 2], self.gains[num - 1]
-                    )
-
-        return max(self.values.values())
-
-
-class Solution:
-    def __init__(self) -> None:
-        self.points = defaultdict(int)
-
-    def deleteAndEarn(self, nums: List[int]) -> int:
-        maxnum = 0
-
-        for num in nums:
-            self.points[num] += num
-            maxnum = max(num, maxnum)
-
-        if num == 0:
+        if maxnum == 0:
             return 0
-        if num == 1:
-            return self.points[1]
+        if maxnum == 1:
+            return nums.count(1)
 
-        if num not in self.points:
-            self.deleteAndEarn(num - 1)
-            self.points[num] = max(
-                self.points[num] + self.points[num - 2], self.points[num - 1]
-            )
+        for n in range(0, maxnum + 1, 1):
+            self.gain[n] = nums.count(n) * n
 
-        return max(self.points.values())
+        self.hash[1] = self.gain[1]
+
+        def get_cumulated_gain(num):
+            for n in range(num, 0, -1):
+                if n not in self.hash:
+                    get_cumulated_gain(n - 1)
+                    self.hash[n] = max(
+                        self.gain[n] + self.hash[n - 2], self.hash[n - 1]
+                    )
+                return self.hash[n]
+
+        # get_cumulated_gain(maxnum)
+
+        # return self.hash[maxnum]
+        return get_cumulated_gain(maxnum)
 
 
 sol = Solution()
@@ -67,4 +47,10 @@ sol.deleteAndEarn(nums=[3, 4, 2])
 
 sol = Solution()
 sol.deleteAndEarn(nums=[2, 2, 3, 3, 3, 4])
+
+sol = Solution()
+sol.deleteAndEarn(nums=[1])
+
+sol = Solution()
+sol.deleteAndEarn(nums=[1, 1, 1, 2, 4, 5, 5, 5, 6])
 
