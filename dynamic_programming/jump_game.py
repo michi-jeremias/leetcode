@@ -1,7 +1,7 @@
 """
 https://leetcode.com/problems/jump-game/
 
-Problem 8S in
+Problem 8 in
 https://leetcode.com/study-plan/dynamic-programming/
 """
 # from collections import defaultdict
