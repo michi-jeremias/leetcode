@@ -13,7 +13,6 @@ from typing import List
 class Solution:
     def __init__(self) -> None:
         self.min_jumps_needed = defaultdict(int)
-        self.hash = defaultdict(int)
 
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
@@ -22,28 +21,28 @@ class Solution:
         for i in range(1, n):
             self.min_jumps_needed[i] = 1e5
 
-        current_jumps = 0
-        current_min_jumps = 0
+        current_min_jumps = 1
+        max_index_reached = 0
 
-        for current_position in range(0, n, 1):
-            current_jumps += 1
-            for step in range(1, nums[current_position] + 1, 1):
-                if current_position + step <= n - 1:
-                    current_min_jumps = self.min_jumps_needed[current_position + step]
-                    self.min_jumps_needed[current_position + step] = min(
-                        current_jumps, self.min_jumps_needed[current_position + step]
-                    )
-            print(self.min_jumps_needed)
-            current_jumps = min(current_jumps, current_min_jumps)
+        for current_position in range(0, n - 1, 1):
+            current_num = nums[current_position]
+
+            if (
+                current_position + current_num > max_index_reached
+                and max_index_reached < n
+            ):
+                for step in range(1, current_num + 1, 1):
+                    if current_position + step <= n - 1:
+                        self.min_jumps_needed[current_position + step] = min(
+                            current_min_jumps,
+                            self.min_jumps_needed[current_position] + 1,
+                            self.min_jumps_needed[current_position + step],
+                        )
+
+                max_index_reached = min(
+                    max(max_index_reached, current_position + current_num), n - 1
+                )
+
+                current_min_jumps = self.min_jumps_needed[max_index_reached] + 1
         return self.min_jumps_needed[n - 1]
-
-
-sol = Solution()
-sol.jump([1, 2, 1, 1, 1])  # 3
-
-sol = Solution()
-sol.jump([2, 3, 1, 1, 4])  # 2
-
-sol = Solution()
-sol.jump([9, 7, 9, 4, 8, 1, 6, 1, 5, 6, 2, 1, 7, 9, 0])  # 2
 
