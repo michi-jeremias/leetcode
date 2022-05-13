@@ -3,8 +3,8 @@ from dynamic_programming.delete_and_earn import Solution
 
 
 class TestSolution(unittest.TestCase):
-    def test_delete_and_earn(self):
+    def test_deleteAndEarn(self):
         sol = Solution()
-        self.assertEqual(sol.delete_and_earn([3, 4, 2]), 6)
+        self.assertEqual(sol.deleteAndEarn([3, 4, 2]), 6)
         sol = Solution()
-        self.assertEqual(sol.delete_and_earn([2, 2, 3, 3, 3, 4]), 9)
+        self.assertEqual(sol.deleteAndEarn([2, 2, 3, 3, 3, 4]), 9)
