@@ -9,5 +9,13 @@ class TestSolution(unittest.TestCase):
         sol = Solution()
         self.assertEqual(sol.maxSubArray([1]), 1)
         sol = Solution()
-        self.assertEqual(sol.maxSubArray([[5, 4, -1, 7, 8]]), 23)
+        self.assertEqual(sol.maxSubArray([5, 4, -1, 7, 8]), 23)
+        sol = Solution()
+        self.assertEqual(sol.maxSubArray([-1, -2]), -1)
+        sol = Solution()
+        self.assertEqual(sol.maxSubArray([1, 2]), 3)
+        sol = Solution()
+        self.assertEqual(
+            sol.maxSubArray([31, -41, 59, 26, -53, 58, 97, -93, -23, 84]), 187
+        )
 
