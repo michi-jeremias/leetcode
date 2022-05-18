@@ -19,13 +19,15 @@ class Solution:
         startindex = 0
         lastdigit = nums[-1]
         for i in range(0, n - 1, 1):
-            if nums[i] * nums[-1] > 0:
+            if nums[i] * lastdigit >= 0:
                 lastdigit += nums[i]
                 startindex += 1
             else:
                 break
 
+        print(lastdigit)
         newnums = nums[startindex:-1] + [lastdigit]
+        print(newnums)
         n2 = len(newnums)
 
         maxmax = 0
@@ -38,10 +40,13 @@ class Solution:
             maxmax = max(maxmax, curmax)
 
         if maxmax == 0:
-            return max(newnums)
+            return max(max(nums), max(newnums))
 
-        return max(max(newnums), maxmax)
+        return max(max(nums), max(newnums), maxmax)
 
+
+sol = Solution()
+sol.maxSubarraySumCircular([-2, 4, -5, 4, -5, 9, 4])  # 15
 
 sol = Solution()
 sol.maxSubarraySumCircular([1, -2, 3, -2])
@@ -51,6 +56,9 @@ sol.maxSubarraySumCircular([5, -3, 5])
 
 sol = Solution()
 sol.maxSubarraySumCircular([-3, -2, -3])  # -2
+
+sol = Solution()
+sol.maxSubarraySumCircular([2, -2, 2, 7, 8, 0])  # 19
 
 
 # class Solution:
